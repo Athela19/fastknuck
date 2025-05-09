@@ -5,33 +5,44 @@ import pool from "@/lib/db";
 export async function GET() {
   const client = await pool.connect();
   try {
-    // Ambil token dari cookies secara asinkron
-    const cookieStore = await cookies();
+    const cookieStore = cookies();
     const token = cookieStore.get("token")?.value;
 
     if (!token) {
-      return Response.json({ message: "Unauthorized" }, { status: 401 });
+      return new Response(JSON.stringify({ message: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
-    // Verifikasi token dan ambil user ID
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
 
-    // Ambil data user berdasarkan ID
     const result = await client.query(
-      "SELECT id, name, email FROM users WHERE id = $1",
+      "SELECT id, name, email, profile_picture, created_at, profile_banner, nomorWa FROM users WHERE id = $1",
       [userId]
     );
 
     if (result.rows.length === 0) {
-      return Response.json({ message: "User not found" }, { status: 404 });
+      return new Response(JSON.stringify({ message: "User not found" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
-    // Kembalikan user yang relevan
-    return Response.json(result.rows[0], { status: 200 });
+    return new Response(JSON.stringify(result.rows[0]), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (err) {
     console.error("GET /api/auth error:", err);
-    return Response.json({ error: err.message }, { status: 500 });
+    return new Response(JSON.stringify({ 
+      error: err.message,
+      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   } finally {
     client.release();
   }

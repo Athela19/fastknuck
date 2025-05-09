@@ -53,7 +53,7 @@ const Auth = () => {
                     secure: process.env.NODE_ENV === "production",
                     sameSite: "strict"
                 });
-                router.push("/Dashboard");
+                router.push("/");
             } else {
                 alert("Registration successful! Please log in.");
                 setIsLogin(true);
