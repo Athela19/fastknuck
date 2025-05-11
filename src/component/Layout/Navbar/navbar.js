@@ -73,17 +73,13 @@ export default function Navbar() {
     setIsSearchOpen((prev) => !prev);
   };
 
-  if (loadingUser) return <div className="h-16 w-full bg-white shadow fixed top-0 z-50"></div>;
+  if (loadingUser)
+    return <div className="h-16 w-full bg-white shadow fixed top-0 z-50"></div>;
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white shadow">
       <div className="flex justify-between items-center h-16 px-4 md:px-6 bg-gray-800 text-white">
         <h1 className="text-2xl font-semibold">FastKnuck</h1>
-
-        {/* Mobile Search Toggle */}
-        <button onClick={toggleSearch} className="md:hidden p-2 bg-gray-700 rounded-full">
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
 
         {/* Desktop Search */}
         <div className="hidden md:flex items-center ml-auto bg-gray-700 rounded-full px-4 py-1 border border-gray-600 w-80">
@@ -96,50 +92,79 @@ export default function Navbar() {
             className="bg-transparent text-white placeholder-gray-400 outline-none w-full"
           />
         </div>
-
-        {/* User / Login */}
-        <div className="ml-4">
-          {user ? (
-            <Link href="/profile">
-              <div className="flex items-center gap-2 cursor-pointer">
-                {user.profile_picture ? (
-                  <Image
-                    src={user.profile_picture}
-                    alt="Profile"
-                    width={36}
-                    height={36}
-                    className="rounded-full border-2 border-white"
-                    priority
-                  />
-                ) : (
-                  <div className="w-9 h-9 rounded-full bg-gray-500 flex items-center justify-center">
-                    <FontAwesomeIcon icon={faUser} className="text-white text-lg" />
-                  </div>
-                )}
-              </div>
-            </Link>
-          ) : (
-            <Link href="/Auth">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
-                Login
-              </button>
-            </Link>
-          )}
+        <div className="flex items-center">
+          {/* Mobile Search Toggle */}
+          <button
+            onClick={toggleSearch}
+            className="md:hidden p-2 bg-gray-700 rounded-full"
+          >
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+          {/* User / Login */}
+          <div className="ml-4">
+            {user ? (
+              <Link href="/profile">
+                <div className="flex items-center gap-2 cursor-pointer">
+                  {user.profile_picture ? (
+                    <Image
+                      src={user.profile_picture}
+                      alt="Profile"
+                      width={36}
+                      height={36}
+                      className="rounded-full border-2 border-white"
+                      priority
+                    />
+                  ) : (
+                    <div className="w-9 h-9 rounded-full bg-gray-500 flex items-center justify-center">
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        className="text-white text-lg"
+                      />
+                    </div>
+                  )}
+                </div>
+              </Link>
+            ) : (
+              <Link href="/Auth">
+                <button className="bg-blue-500 hover:bg-white hover:text-blue-500 border-2 border-blue-500 text-white px-5 py-1 rounded-3xl text-base font-semibold">
+                  Login
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 
+      {/* Mobile Search Input */}
+      {isSearchOpen && (
+        <div className="md:hidden px-4 py-2 bg-white border-t">
+          <div className="flex items-center border rounded-full px-3 py-1">
+            <FontAwesomeIcon icon={faSearch} className="text-gray-500 mr-2" />
+            <input
+              type="text"
+              placeholder="Cari pengguna..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="w-full outline-none"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Search Dropdown */}
       {(isSearchOpen || query) && (
-        <div className="relative bg-white px-4 md:px-6 py-2 shadow-md">
-          {loadingSearch && <p className="text-sm mt-1 text-gray-500">Memuat...</p>}
+        <div className="relative md:absolute md:left-1/2 md:transform md:-translate-x-1/2 w-full bg-white px-4  py-2 shadow-md z-50">
+          {loadingSearch && (
+            <p className="text-sm mt-1 text-gray-500">Memuat...</p>
+          )}
 
           {results.length > 0 && (
-            <ul className="mt-2 border rounded-md shadow divide-y">
+            <ul className="rounded-md">
               {results.map((user) => (
                 <li
                   key={user.id}
                   onClick={() => handleViewProfile(user.slug || user.name)}
-                  className="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3"
+                  className="w-full px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center gap-3"
                 >
                   {user.profile_picture ? (
                     <Image
@@ -151,10 +176,13 @@ export default function Navbar() {
                     />
                   ) : (
                     <div className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center">
-                      <FontAwesomeIcon icon={faUser} className="text-white text-sm" />
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        className="text-white text-sm"
+                      />
                     </div>
                   )}
-                  <div>
+                  <div className="flex-1">
                     <div className="font-medium">{user.name}</div>
                     <div className="text-sm text-gray-500">{user.email}</div>
                   </div>
@@ -164,7 +192,9 @@ export default function Navbar() {
           )}
 
           {!loadingSearch && query && results.length === 0 && (
-            <p className="mt-2 text-sm text-gray-500">Tidak ada pengguna ditemukan</p>
+            <p className="mt-2 text-sm text-gray-500">
+              Tidak ada pengguna ditemukan
+            </p>
           )}
         </div>
       )}

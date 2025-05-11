@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Updated import for App Router
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 const Auth = () => {
@@ -67,14 +67,14 @@ const Auth = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md bg-white p-6 rounded-md shadow-md">
-                <h2 className="text-2xl font-semibold text-center mb-4">
+        <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
+            <div className="w-full sm:max-w-md bg-white p-6 sm:p-8 rounded-md shadow-md">
+                <h2 className="text-xl sm:text-2xl font-semibold text-center mb-4">
                     {isLogin ? "Login" : "Register"}
                 </h2>
 
                 {error && (
-                    <p className="text-red-500 text-center mb-4 p-2 bg-red-50 rounded">
+                    <p className="text-red-500 text-center mb-4 p-2 bg-red-50 rounded text-sm">
                         {error}
                     </p>
                 )}
@@ -89,7 +89,7 @@ const Auth = () => {
                                 type="text"
                                 id="name"
                                 name="name"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
@@ -105,7 +105,7 @@ const Auth = () => {
                             type="email"
                             id="email"
                             name="email"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                             value={formData.email}
                             onChange={handleChange}
                             required
@@ -120,7 +120,7 @@ const Auth = () => {
                             type="password"
                             id="password"
                             name="password"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                             value={formData.password}
                             onChange={handleChange}
                             required
@@ -131,7 +131,7 @@ const Auth = () => {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className={`w-full py-2 px-4 rounded-md text-white ${isLoading ? 'bg-blue-400' : 'bg-blue-500 hover:bg-blue-600'}`}
+                        className={`w-full py-2 px-4 rounded-md text-white text-sm ${isLoading ? 'bg-blue-400' : 'bg-blue-500 hover:bg-blue-600'}`}
                     >
                         {isLoading ? (
                             <span className="flex justify-center items-center">

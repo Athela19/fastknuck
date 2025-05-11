@@ -39,10 +39,10 @@ export async function POST(request) {
     let mediaUrl = null;
     if (file) {
       // Validasi tipe file
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'video/mp4', 'video/mkv'];
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'video/mp4', 'video/mkv', 'video/x-matroska'];
       if (!allowedTypes.includes(file.type)) {
         return NextResponse.json(
-          { error: 'Only JPEG, PNG, WEBP images and MP4 videos are allowed' },
+          { error: 'Only JPEG, PNG, WEBP images MKV and MP4 videos are allowed' },
           { status: 400 }
         );
       }
