@@ -78,18 +78,25 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white shadow">
-      <div className="flex justify-between items-center h-16 px-4 md:px-6 bg-gray-800 text-white">
-        <h1 className="text-2xl font-semibold">FastKnuck</h1>
+      <div className="flex justify-between items-center h-16 px-4 md:px-6 bg-white text-blue-600">
+        <Image
+          src="/Logo.png"
+          alt="Logo"
+          width={45}
+          height={45}
+          className="cursor-pointer rounded-full mr-2"
+        />
+        <h1 className="text-3xl font-bold">FastKnuck</h1>
 
         {/* Desktop Search */}
-        <div className="hidden md:flex items-center ml-auto bg-gray-700 rounded-full px-4 py-1 border border-gray-600 w-80">
-          <FontAwesomeIcon icon={faSearch} className="text-gray-300 mr-2" />
+        <div className="hidden md:flex items-center ml-auto bg-white rounded-full px-4 py-1 border border-gray-600 w-80">
+          <FontAwesomeIcon icon={faSearch} className="text-gray-600 mr-2" />
           <input
             type="text"
             placeholder="Cari pengguna..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="bg-transparent text-white placeholder-gray-400 outline-none w-full"
+            className="bg-transparent text-gray-600 placeholder-gray-400 outline-none w-full"
           />
         </div>
         <div className="flex items-center">
@@ -115,12 +122,14 @@ export default function Navbar() {
                       priority
                     />
                   ) : (
-                    <div className="w-9 h-9 rounded-full bg-gray-500 flex items-center justify-center">
-                      <FontAwesomeIcon
-                        icon={faUser}
-                        className="text-white text-lg"
-                      />
-                    </div>
+                    <Image
+                      src="/profile.jpg"
+                      alt="Profile"
+                      width={36}
+                      height={36}
+                      className="rounded-full border-2 border-white"
+                      priority
+                    />
                   )}
                 </div>
               </Link>

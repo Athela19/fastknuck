@@ -8,7 +8,7 @@ import { cookies } from 'next/headers';
 export async function POST(request) {
   try {
     // Verifikasi token dari cookies
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const token = cookieStore.get('token')?.value;
 
     if (!token) {

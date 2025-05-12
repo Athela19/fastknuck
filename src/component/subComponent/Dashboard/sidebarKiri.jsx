@@ -35,14 +35,14 @@ export default function Sidekiri() {
 
   if (loadingUser) {
     return (
-      <div className="w-2/7 h-screen bg-gray-200 p-4 fixed top-16 left-0">
+      <div className="w-2/7 h-screen bg-gray-200 p-4 fixed top-16 left-0 lg:block hidden">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="w-2/7 h-screen bg-gray-200 p-4 fixed top-16 left-0">
+    <div className="w-2/7 h-screen bg-gray-200 p-4 fixed top-16 left-0 lg:block hidden">
       <div className="flex items-center mb-4">
         <Image
           src={
