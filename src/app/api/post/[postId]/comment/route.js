@@ -6,18 +6,8 @@ import jwt from 'jsonwebtoken';
 // GET: Ambil komentar
 export async function GET(req, context) {
   try {
-    const { params } = context;
-    const cookieStore = cookies();
-    const token = cookieStore.get('token')?.value;
-
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized - No token provided' }, { status: 401 });
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decoded.id;
-
-    const postId = parseInt(params.postId);
+    const idPost = await context.params;
+    const postId = parseInt(idPost.postId);
     const { rows } = await pool.query(`
       SELECT comments.*, users.name 
       FROM comments 
@@ -38,7 +28,7 @@ export async function POST(req, context) {
   try {
     const { params } = context;
     const postId = parseInt(params.postId);
-    const cookieStore = cookies();
+    const cookieStore =await cookies();
     const token = cookieStore.get('token')?.value;
 
     if (!token) {

@@ -103,7 +103,7 @@ export default function Navbar() {
           {/* Mobile Search Toggle */}
           <button
             onClick={toggleSearch}
-            className="md:hidden p-2 bg-gray-700 rounded-full"
+            className="md:hidden p-2 rounded-full"
           >
             <FontAwesomeIcon icon={faSearch} />
           </button>

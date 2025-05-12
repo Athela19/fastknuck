@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import pool from '@/lib/db';
 import jwt from 'jsonwebtoken'
 
-export async function POST(req, { params }) {
+export async function POST(req, context) {
   try {
     // Verifikasi token dari cookies
     const cookieStore = await cookies();
@@ -21,7 +21,8 @@ export async function POST(req, { params }) {
     const userId = decoded.id;
 
     // Extract postId from params
-    const postId = parseInt(params.postId);
+    const idpost = await context.params;
+    const postId = parseInt(idpost.postId);
     if (isNaN(postId)) {
       return NextResponse.json({ error: 'Invalid postId' }, { status: 400 });
     }
