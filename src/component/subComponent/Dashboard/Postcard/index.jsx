@@ -32,8 +32,9 @@ export default function PostCard() {
     loadData();
   }, []);
 
-  return (
-    <div className="max-w-2xl mx-auto p-4 space-y-6 bg-gray-200 mt-16">
+  return (<div>
+    <p>tes</p>
+    <div className="max-w-2xl mx-auto p-4 space-y-6 bg-gray-200 mt-12">
       <PostCreate
         profilePic={profilePic}
         name={name}
@@ -50,6 +51,7 @@ export default function PostCard() {
         users={users} 
         profilePic={profilePic}
       />
+    </div>
     </div>
   );
 }

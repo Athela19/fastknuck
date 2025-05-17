@@ -41,6 +41,13 @@ export default function Navbar() {
     loadUser();
   }, []);
 
+  // Redirect ke /auth jika sudah loading dan user tidak ditemukan
+  useEffect(() => {
+    if (!loadingUser && !user) {
+      router.push("/Auth");
+    }
+  }, [loadingUser, user, router]);
+
   useEffect(() => {
     const delayDebounce = setTimeout(async () => {
       if (query.trim()) {
@@ -101,10 +108,7 @@ export default function Navbar() {
         </div>
         <div className="flex items-center">
           {/* Mobile Search Toggle */}
-          <button
-            onClick={toggleSearch}
-            className="md:hidden p-2 rounded-full"
-          >
+          <button onClick={toggleSearch} className="md:hidden p-2 rounded-full">
             <FontAwesomeIcon icon={faSearch} />
           </button>
           {/* User / Login */}
@@ -134,7 +138,7 @@ export default function Navbar() {
                 </div>
               </Link>
             ) : (
-              <Link href="/Auth">
+              <Link href="/auth">
                 <button className="bg-blue-500 hover:bg-white hover:text-blue-500 border-2 border-blue-500 text-white px-5 py-1 rounded-3xl text-base font-semibold">
                   Login
                 </button>

@@ -18,12 +18,15 @@ export default function PostItem({ post, user, profilePic }) {
     <article className="bg-white rounded-lg shadow-sm p-4 space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img
-            src={user.profile_url}
-            alt={user.name}
-            className="w-10 h-10 rounded-full object-cover border border-gray-200"
-            loading="lazy"
-          />
+          <a href={`/profile/${user.name}`}>
+            <img
+              src={user.profile_url}
+              alt={user.name}
+              className="w-10 h-10 rounded-full object-cover border border-gray-200"
+              loading="lazy"
+            />
+          </a>
+
           <div>
             <p className="font-semibold text-gray-800">{user.name}</p>
             <p className="text-xs text-gray-500">
@@ -88,17 +91,12 @@ export default function PostItem({ post, user, profilePic }) {
         )}
       </div>
 
-      <PostActions 
-        post={post} 
-        onToggleComments={() => setShowComments(!showComments)} 
+      <PostActions
+        post={post}
+        onToggleComments={() => setShowComments(!showComments)}
       />
 
-      {showComments && (
-        <PostComments 
-          post={post} 
-          profilePic={profilePic} 
-        />
-      )}
+      {showComments && <PostComments post={post} profilePic={profilePic} />}
     </article>
   );
 }

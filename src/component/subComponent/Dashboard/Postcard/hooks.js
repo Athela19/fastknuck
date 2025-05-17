@@ -3,15 +3,17 @@ import axios from "axios";
 export const fetchProfileData = async () => {
   try {
     const response = await axios.get("/api/auth", { withCredentials: true });
+    const data = response?.data || {};
     return {
-      profilePic: response.data.profile_picture || "/profile.jpg",
-      name: response.data.name || "Teman",
+      profilePic: data.profile_picture || "/profile.jpg",
+      name: data.name || "Teman",
     };
   } catch (err) {
     console.error("Gagal memuat data profil:", err);
     return { profilePic: "/profile.jpg", name: "Teman" };
   }
 };
+
 
 export const fetchLikesStatus = async (posts) => {
   try {

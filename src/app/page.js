@@ -4,7 +4,7 @@ import Postcard from "@/component/subComponent/Dashboard/postcard/index";
 
 export default function Home() {
   return (
-    <div>
+    <div id="home">
       <Sidekiri />
       <Postcard />
       <Sidekanan />
